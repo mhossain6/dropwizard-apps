@@ -6,7 +6,7 @@
     <groupId>com.example</groupId>
     <artifactId>tasker</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>rest</name>
+    <name>tasker</name>
     <description>REST demo project using dropwizard</description>
     <properties>
         <java.version>11</java.version>
