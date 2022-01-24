@@ -4,11 +4,11 @@ const path = require("path");
 const Dotenv = require("dotenv-webpack");
 
 module.exports = merge(common, {
-  mode: "development",
+  mode: "production",
   devtool: 'eval-cheap-source-map',
   output: {
     filename: "my_app_ui.js",
-    path: path.resolve(__dirname, "../main/resources/static"),
+    path: path.resolve(__dirname, "./dist"),
     library: "myappReactMicroAppp",
     libraryTarget: "window",
   },
