@@ -8,7 +8,7 @@ module.exports = merge(common, {
   devtool: 'eval-cheap-source-map',
   output: {
     filename: "my_app_ui.js",
-    path: path.resolve(__dirname, "../main/resources/static"),
+    path: path.resolve(__dirname, "./dist"),
     library: "myappReactMicroAppp",
     libraryTarget: "window",
   },
