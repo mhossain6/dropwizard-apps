@@ -63,21 +63,6 @@ public class TaskApplication extends io.dropwizard.Application<TaskAppConfigurat
         env.jersey().register(Dropwizard404ExceptionMapper.class);
 
         configureCors(env);
-
-        /*
-        // Enable CORS headers
-        final FilterRegistration.Dynamic cors =
-                env.servlets().addFilter("CORS", CrossOriginFilter.class);
-
-        // Configure CORS parameters
-        cors.setInitParameter("allowedOrigins", "*");
-        cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin");
-        cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
-        cors.setInitParameter(CrossOriginFilter.ALLOW_CREDENTIALS_PARAM, "true");
-        // Add URL mapping
-        cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
-
-         */
     }
 
     private void configureCors(Environment environment) {
