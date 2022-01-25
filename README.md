@@ -54,15 +54,15 @@ To test the example application run the following commands.
 
 git clone https://github.com/mhossain6/dropwizard-apps.git
 
-# build server 
+#build server 
 
-cd dropwizard-apps/tasker-server/
-mvn clean install
+cd dropwizard-apps/tasker-server/ \
+mvn clean install \
 docker build -t tasker_server --label tasker_server  . \
 docker container run -p 8080:8080/tcp  tasker_server
 
-# build ui
- cd ../tasker-ui/
+#build ui
+ cd ../tasker-ui/ \
  docker build -t tasker_ui --label tasker_ui  . \
  docker container run -p 3000:3000  tasker_ui
  
