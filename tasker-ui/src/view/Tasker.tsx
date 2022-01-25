@@ -305,7 +305,7 @@ const TaskView: React.FC<TaskListProps> = ({ tasks, onChangeCallBack }) => {
                         </Item>
                         <Item style={{ alignItems: "right" }}>
                           <Stack spacing={2} direction="row">
-                            <ListItem>
+                            <Item>
                               <Checkbox
                                 checked={task.checked === "Y" ? true : false}
                                 onClick={(e) => {
@@ -321,7 +321,7 @@ const TaskView: React.FC<TaskListProps> = ({ tasks, onChangeCallBack }) => {
                                   />
                                 </Avatar>
                               </ListItemAvatar>
-                            </ListItem>
+                            </Item>
                           </Stack>
                         </Item>
                       </Stack>
