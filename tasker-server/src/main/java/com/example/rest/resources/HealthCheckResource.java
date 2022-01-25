@@ -20,7 +20,7 @@ public class HealthCheckResource {
     @Timed
     @Produces(MediaType.TEXT_PLAIN)
     public Response getHealth() {
-        return Response.ok("Healthy").build();
+        return Response.ok("Healthy\n").build();
     }
 
 }
