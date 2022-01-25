@@ -312,6 +312,8 @@ const TaskView: React.FC<TaskListProps> = ({ tasks, onChangeCallBack }) => {
                                   onCheckBoxClick(task);
                                 }}
                               />
+                            </Item>
+                            <Item>
                               <ListItemAvatar>
                                 <Avatar>
                                   <DeleteIcon
