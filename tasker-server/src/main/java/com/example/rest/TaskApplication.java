@@ -3,7 +3,7 @@ package com.example.rest;
 import com.example.rest.api.Task;
 import com.example.rest.db.TaskDAO;
 import com.example.rest.provider.Dropwizard404ExceptionMapper;
-import com.example.rest.resources.HelloResource;
+import com.example.rest.resources.HealthCheckResource;
 import com.example.rest.resources.TaskResource;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
@@ -59,7 +59,7 @@ public class TaskApplication extends io.dropwizard.Application<TaskAppConfigurat
     public void run(TaskAppConfiguration config, Environment env) {
         TaskDAO taskDAO = new TaskDAO(hibernate.getSessionFactory());
         env.jersey().register(new TaskResource(taskDAO));
-        env.jersey().register(new HelloResource());
+        env.jersey().register(new HealthCheckResource());
         env.jersey().register(Dropwizard404ExceptionMapper.class);
 
         configureCors(env);
