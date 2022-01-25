@@ -61,7 +61,8 @@ mvn clean install \
 docker build -t tasker_server --label tasker_server  . \
 docker container run -p 8080:8080/tcp  tasker_server
 
-#build ui
+#build ui \
+
  cd ../tasker-ui/ \
  docker build -t tasker_ui --label tasker_ui  . \
  docker container run -p 3000:3000  tasker_ui
