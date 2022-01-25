@@ -29,7 +29,7 @@ public class TaskAppConfiguration extends Configuration {
     }
 
     private void setDBConfig() {
-        this.database.setUrl("jdbc:h2:mem:sample;ACCESS_MODE_DATA=rws");
+        this.database.setUrl("jdbc:h2:/db/task;ACCESS_MODE_DATA=rws");
         this.database.setDriverClass("org.h2.Driver");
         this.database.setUser("sa");
         this.database.setPassword("sa");

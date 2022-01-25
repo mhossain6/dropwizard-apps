@@ -8,15 +8,15 @@ import {
   CardContent,
   Paper,
   ListItemAvatar,
-  Container ,
+  Container,
   Avatar,
   CardActions,
   Grid,
   Checkbox,
+  InputAdornment,
   styled,
-  ListItemButton,
-  ListItemIcon,
 } from "@mui/material";
+import DatePicker from "@mui/lab/DatePicker";
 import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MinimizeIcon from "@mui/icons-material/Minimize";
@@ -27,6 +27,10 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import { putTask, getTasks, deleteTask, updateTask } from "../api/service";
 import "./Tasker.css";
+import moment from "moment";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+
 //#require('dotenv').config();
 
 type AppProps = {
@@ -53,7 +57,6 @@ const customStyle = {
   alignContent: "left",
 };
 
-
 // Easiest way to declare a Function Component; return type is inferred.
 const Tasker = ({ name }: AppProps) => {
   const [tasks, setTasks] = React.useState<Task[]>([]);
@@ -74,7 +77,7 @@ const Tasker = ({ name }: AppProps) => {
   const onSaveClick = (task: Task) => {
     console.log("onSaveClick - ", task);
 
-    putTask(`${process.env.SERVER_URL}`, task)
+    putTask(`${process.env.REACT_APP_DB_URL}`, task)
       .then((data) => {
         console.log("response data ", data);
         addTaskToList(task);
@@ -85,7 +88,7 @@ const Tasker = ({ name }: AppProps) => {
   };
 
   const getTasksFromDB = () => {
-    getTasks(`${process.env.SERVER_URL}`)
+    getTasks(`${process.env.REACT_APP_DB_URL}`)
       .then((data) => {
         console.log("in getTask response ", data);
         setTasks(data);
@@ -133,26 +136,52 @@ const Tasker = ({ name }: AppProps) => {
   );
 };
 
-
-
 const AddTaskView: React.FC<AddTaskProps> = ({ onSaveCallbak }) => {
   const [description, setDescription] = React.useState<string>("");
   const [date, setDate] = React.useState<string>("");
+  const [vaildDate, setVaildDate] = React.useState<boolean>(true);
 
   const onDescriptionChange = (event) => {
     setDescription(event.target.value);
   };
   const onDateChange = (event) => {
-    setDate(event.target.value);
+    const valid: boolean = validateDate(event.target.value);
+    if (valid) {
+      setDate(event.target.value);
+      setVaildDate(true);
+    } else {
+      setVaildDate(false);
+    }
   };
 
   const onSaveClick = (event) => {
-    const task: Task = new Task();
-    task.checked = "N";
-    task.date = date;
-    task.description = description;
-    onSaveCallbak(task);
+    if (date.length == 10 && validateDate(date)) {
+      const task: Task = new Task();
+      task.checked = "N";
+      task.date = date;
+      task.description = description;
+
+      onSaveCallbak(task);
+    } else {
+      setVaildDate(false);
+    }
   };
+
+  const validateDate = (dateText: string): boolean => {
+    if (dateText.length == 10) {
+      try {
+        var date = moment(dateText);
+        return date.isValid();
+      } catch (error) {
+        alert("invalid date!");
+      }
+    }
+    if (dateText.length > 10) {
+      alert("invalid date!");
+    }
+    return true;
+  };
+
   return (
     <>
       <Card sx={{ minWidth: 275 }}>
@@ -172,7 +201,7 @@ const AddTaskView: React.FC<AddTaskProps> = ({ onSaveCallbak }) => {
               <TextField
                 style={{ width: "100%" }}
                 required
-                id="outlined-required"
+                id="description_field"
                 value={description}
                 onChange={onDescriptionChange}
               />
@@ -184,11 +213,22 @@ const AddTaskView: React.FC<AddTaskProps> = ({ onSaveCallbak }) => {
             </Item>
             <Item>
               <TextField
+                error={!vaildDate}
+                id="date_field"
+                label={vaildDate ? "" : "Error"}
+                helperText={vaildDate ? "" : "Incorrect entry."}
+                variant="standard"
                 style={{ width: "100%" }}
                 required
-                id="outlined-required"
                 value={date}
                 onChange={onDateChange}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <EventIcon />
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Item>
           </Stack>
@@ -216,7 +256,7 @@ const TaskView: React.FC<TaskListProps> = ({ tasks, onChangeCallBack }) => {
     if (task.checked === "N") task.checked = "Y";
     else task.checked = "N";
 
-    updateTask(`${process.env.SERVER_URL}`, task)
+    updateTask(`${process.env.REACT_APP_DB_URL}`, task)
       .then((data) => {
         console.log("response data ", data);
         onChangeCallBack();
@@ -229,7 +269,7 @@ const TaskView: React.FC<TaskListProps> = ({ tasks, onChangeCallBack }) => {
   const onDeleteClick = (task: Task) => {
     console.log("onDeleteClick - ", task);
 
-    deleteTask(`${process.env.SERVER_URL}`, task)
+    deleteTask(`${process.env.REACT_APP_DB_URL}`, task)
       .then((data) => {
         console.log("response data ", data);
         onChangeCallBack();
@@ -253,12 +293,12 @@ const TaskView: React.FC<TaskListProps> = ({ tasks, onChangeCallBack }) => {
                         <Item sx={{ minWidth: 275 }} style={{ width: "80%" }}>
                           <Stack spacing={2}>
                             <Item>
-                              <ListItemText primary={task.description}  />
+                              <ListItemText primary={task.description} />
                             </Item>
                             <Item>
-                            <Stack spacing={2} direction="row">
-                              <EventIcon />
-                              <ListItemText primary={task.date} />
+                              <Stack spacing={2} direction="row">
+                                <EventIcon />
+                                <ListItemText primary={task.date} />
                               </Stack>
                             </Item>
                           </Stack>
@@ -297,4 +337,3 @@ const TaskView: React.FC<TaskListProps> = ({ tasks, onChangeCallBack }) => {
   );
 };
 export default Tasker;
-

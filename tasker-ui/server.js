@@ -1,6 +1,7 @@
 const Webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const webpackConfig = require('./webpack.prod.js');
+const Dotenv = require('dotenv-webpack');
 
 const compiler = Webpack(webpackConfig);
 const devServerOptions = { ...webpackConfig.devServer, open: true };
