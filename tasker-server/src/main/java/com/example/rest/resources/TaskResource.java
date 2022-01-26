@@ -4,6 +4,10 @@ import com.codahale.metrics.annotation.Timed;
 import com.example.rest.api.Task;
 import com.example.rest.db.TaskDAO;
 import com.example.rest.provider.Dropwizard404Exception;
+import com.example.rest.provider.InvalidUserInputException;
+import com.example.rest.validation.DateTimeValidator;
+import com.example.rest.validation.EntityValidator;
+import com.example.rest.validation.SubjectValidator;
 import io.dropwizard.hibernate.UnitOfWork;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,17 +61,32 @@ public class TaskResource {
     @Timed
     @UnitOfWork
     @Transactional
-    public Task createOrReplaceTask(@Valid final Task task) {
-        return taskDAO.createOrReplace(task);
+    public Task createOrReplaceTask(@Valid final Task task) throws InvalidUserInputException {
+        if (validateTask(task))
+            return taskDAO.createOrReplace(task);
+        else {
+            throw new InvalidUserInputException(400, "User input failed validation");
+        }
+    }
+
+    private boolean validateTask(final Task task) throws InvalidUserInputException {
+        DateTimeValidator dateTimeValidator = new DateTimeValidator();
+        SubjectValidator subjectValidator = new SubjectValidator();
+        return dateTimeValidator.ValidateDate(task.getDate()) && subjectValidator.ValidateSubject(task.getDescription());
     }
 
     @PUT
     @Timed
     @UnitOfWork
     @Transactional
-    public Task createTask(@Valid final Task task) {
+    public Task createTask(@Valid final Task task) throws InvalidUserInputException {
         logger.info("Received a task: {}", task);
-        return taskDAO.createTask(task);
+
+        if (validateTask(task))
+            return taskDAO.createTask(task);
+        else {
+            throw new InvalidUserInputException(400, "User input failed validation");
+        }
     }
 
     @DELETE
@@ -75,12 +94,16 @@ public class TaskResource {
     @Timed
     @UnitOfWork
     @Transactional
-    public Response deleteTask(@PathParam("id") Long id) throws Dropwizard404Exception {
+    public Response deleteTask(@PathParam("id") Long id) throws Dropwizard404Exception, InvalidUserInputException {
         logger.info("Received for deletion with id {}", id);
-        Integer rowCount = taskDAO.deleteTask(id);
-        if (rowCount > 0)
-            return Response.ok(rowCount).build();
-        else
-            throw new Dropwizard404Exception(404, "No Object Found with the ID");
+        EntityValidator entityValidator = new EntityValidator();
+
+        if (entityValidator.ValidateEntity(id)) {
+            Integer rowCount = taskDAO.deleteTask(id);
+            if (rowCount > 0)
+                return Response.ok(rowCount).build();
+        }
+        throw new Dropwizard404Exception(404, "No Object Found with the ID");
+
     }
 }

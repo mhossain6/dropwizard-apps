@@ -5,7 +5,7 @@ const Header: React.FC = (props: any) => {
   return (
     <div>
       <Paper>
-        <Typography variant="h6" component="h6">
+        <Typography variant="h6" component="h6" align="left">
           Tasker
         </Typography>
       </Paper>

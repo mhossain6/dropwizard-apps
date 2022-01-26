@@ -184,7 +184,7 @@ const AddTaskView: React.FC<AddTaskProps> = ({ onSaveCallbak }) => {
 
   return (
     <>
-      <Card sx={{ minWidth: 275 }}>
+      <Card sx={{ minWidth: "sm" }}>
         <CardContent style={customStyle}>
           <Stack spacing={1}>
             <Item>
@@ -281,7 +281,7 @@ const TaskView: React.FC<TaskListProps> = ({ tasks, onChangeCallBack }) => {
 
   return (
     <>
-      <Card sx={{ minWidth: 275 }}>
+      <Card sx={{ minWidth: "sm" }}>
         <CardContent style={customStyle}>
           <Stack spacing={2} direction="row">
             <List style={{ width: "100%" }}>
@@ -290,7 +290,7 @@ const TaskView: React.FC<TaskListProps> = ({ tasks, onChangeCallBack }) => {
                   <ListItem key={idx} style={{ width: "100%" }}>
                     <Paper style={{ width: "100%" }}>
                       <Stack spacing={2} direction="row">
-                        <Item sx={{ minWidth: 275 }} style={{ width: "80%" }}>
+                        <Item sx={{ minWidth: "sm" }} style={{ width: "80%" }}>
                           <Stack spacing={2}>
                             <Item>
                               <ListItemText primary={task.description} />
