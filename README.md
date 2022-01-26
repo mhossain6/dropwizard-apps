@@ -77,3 +77,9 @@ $docker container run -p 8080:8080/tcp  tasker_server
  Browse site:
  
  http://localhost:3000/
+ 
+ # API Test 
+ 
+ API test script for postman is available in 
+ 
+ tasker-server\postman-test
