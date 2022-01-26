@@ -9,4 +9,5 @@ public class EntityValidator {
             throw new InvalidUserInputException(400, "Description provided is null");
         return true;
     }
+
 }

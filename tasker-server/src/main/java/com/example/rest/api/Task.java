@@ -50,9 +50,9 @@ public class Task {
     }
 
     public Task(String description, String date) {
-
         this.description = description;
         this.date = date;
+        this.checked = "N";
     }
 
     public int getVersion() {

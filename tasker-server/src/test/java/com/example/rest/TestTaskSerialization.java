@@ -1,6 +1,5 @@
 package com.example.rest;
 
-
 import com.example.rest.api.Task;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.dropwizard.jackson.Jackson;
@@ -15,11 +14,11 @@ public class TestTaskSerialization {
 
     @Test
     public void serializesToJSON() throws Exception {
-        final Task person = new Task(1, "Do serial test", "2022-01-20");
+        final Task task = new Task(1, "Do serial test", "2022-01-20");
 
         final String expected = MAPPER.writeValueAsString(
                 MAPPER.readValue(fixture("fixtures/task.json"), Task.class));
 
-        assertThat(MAPPER.writeValueAsString(person)).isEqualTo(expected);
+        assertThat(MAPPER.writeValueAsString(task)).isEqualTo(expected);
     }
 }

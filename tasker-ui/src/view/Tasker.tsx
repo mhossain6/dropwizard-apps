@@ -1,35 +1,31 @@
+
+import React from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import MinimizeIcon from "@mui/icons-material/Minimize";
+import EventIcon from "@mui/icons-material/Event";
 import {
   Button,
   Stack,
-  Box,
   TextField,
   Typography,
   Card,
   CardContent,
   Paper,
   ListItemAvatar,
-  Container,
   Avatar,
   CardActions,
-  Grid,
   Checkbox,
   InputAdornment,
   styled,
+  List,
+  ListItem,
+  ListItemText,
 } from "@mui/material";
-import DatePicker from "@mui/lab/DatePicker";
-import React, { useEffect, useState } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
-import MinimizeIcon from "@mui/icons-material/Minimize";
+
 import { Task } from "../api/task";
-import EventIcon from "@mui/icons-material/Event";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 import { putTask, getTasks, deleteTask, updateTask } from "../api/service";
 import "./Tasker.css";
 import moment from "moment";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
 
 //#require('dotenv').config();
 
@@ -53,6 +49,7 @@ const Item = styled(Paper)(({ theme }) => ({
   boxShadow: "none",
   color: theme.palette.text.secondary,
 }));
+
 const customStyle = {
   alignContent: "left",
 };
