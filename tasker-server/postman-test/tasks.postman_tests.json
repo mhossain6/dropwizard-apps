@@ -364,7 +364,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"version\": 0,\r\n    \"id\": {{newCreatedTaskId}},\r\n    \"checked\": \"Y\",\r\n    \"description\": \"Help me\",\r\n    \"date\": \"2022-02-20\"\r\n}"
+					"raw": "{\r\n    \"id\": {{newCreatedTaskId}},\r\n    \"checked\": \"Y\",\r\n    \"description\": \"Help me\",\r\n    \"date\": \"2022-02-20\"\r\n}"
 				},
 				"url": {
 					"raw": "http://{{url}}/task",
@@ -422,7 +422,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"version\": 0,\r\n    \"id\": {{newCreatedTaskId}},\r\n    \"checked\": \"N\",\r\n    \"description\": \"Help me\",\r\n    \"date\": \"2022-02-20\"\r\n}"
+					"raw": "{\r\n    \"id\": {{newCreatedTaskId}},\r\n    \"checked\": \"N\",\r\n    \"description\": \"Help me\",\r\n    \"date\": \"2022-02-20\"\r\n}"
 				},
 				"url": {
 					"raw": "http://{{url}}/task",

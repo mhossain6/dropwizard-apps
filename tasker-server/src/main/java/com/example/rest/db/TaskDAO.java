@@ -41,8 +41,6 @@ public class TaskDAO extends AbstractDAO<Task> {
         } else {
             return createTask(task);
         }
-
-
     }
 
 
