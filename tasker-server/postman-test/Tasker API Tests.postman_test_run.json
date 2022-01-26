@@ -1,0 +1,448 @@
+{
+	"id": "6ac77258-d323-464f-88d3-82a93fb022ec",
+	"name": "Tasker API Tests",
+	"timestamp": "2022-01-26T10:26:57.272Z",
+	"collection_id": "19323271-6e1d3f0a-3079-4ce5-ba44-6a1c9abb5174",
+	"folder_id": 0,
+	"environment_id": "a9523e7b-f7ee-4aec-a4a4-d3b6f974da0c",
+	"totalPass": 30,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "832ee57d-62d4-4ce0-b1a4-c1846ba0c817",
+			"name": "Create Task",
+			"url": "http://localhost:8080/task",
+			"time": 25,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Validate new Created Object - checked": true,
+				"Validate new Created Object - date": true,
+				"Validate new Created Object - description": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate new Created Object - checked": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate new Created Object - date": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate new Created Object - description": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				25
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Validate new Created Object - checked": true,
+					"Validate new Created Object - date": true,
+					"Validate new Created Object - description": true
+				}
+			]
+		},
+		{
+			"id": "25387281-3690-4542-aa80-b93ccdd80156",
+			"name": "Create Task (minimal body)",
+			"url": "http://localhost:8080/task",
+			"time": 14,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Validate new Created Object - checked": true,
+				"Validate new Created Object - date": true,
+				"Validate new Created Object - description": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate new Created Object - checked": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate new Created Object - date": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate new Created Object - description": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Validate new Created Object - checked": true,
+					"Validate new Created Object - date": true,
+					"Validate new Created Object - description": true
+				}
+			]
+		},
+		{
+			"id": "836f14c5-6614-4f6e-9c22-10bfd72fd7b5",
+			"name": "Create Task with Malformed Data",
+			"url": "http://localhost:8080/task",
+			"time": 8,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true,
+				"Error Description Contained in Body Matches": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error Description Contained in Body Matches": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 400": true,
+					"Error Description Contained in Body Matches": true
+				}
+			]
+		},
+		{
+			"id": "0c45afcf-f10b-4548-b6ad-c2a15bed366f",
+			"name": "Create Task with Malformed Data Description",
+			"url": "http://localhost:8080/task",
+			"time": 7,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true,
+				"Error Description Contained in Body Matches": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error Description Contained in Body Matches": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status code is 400": true,
+					"Error Description Contained in Body Matches": true
+				}
+			]
+		},
+		{
+			"id": "eb1bfb2c-534d-4090-8168-28ed7ab8c2aa",
+			"name": "Get Tasks",
+			"url": "http://localhost:8080/task",
+			"time": 52,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response contains 1 or More Task Object": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response contains 1 or More Task Object": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				52
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response contains 1 or More Task Object": true
+				}
+			]
+		},
+		{
+			"id": "598bc43a-c9f1-4efa-ba70-3792e6400760",
+			"name": "Query a Task",
+			"url": "http://localhost:8080/task/7",
+			"time": 7,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Validate new Created Object - checked": true,
+				"Validate new Created Object - date": true,
+				"Validate new Created Object - description": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate new Created Object - checked": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate new Created Object - date": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate new Created Object - description": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Validate new Created Object - checked": true,
+					"Validate new Created Object - date": true,
+					"Validate new Created Object - description": true
+				}
+			]
+		},
+		{
+			"id": "7eaad8f5-ee9d-4fb6-b970-de04ff7e83db",
+			"name": "Update a Task (Checked = Y)",
+			"url": "http://localhost:8080/task",
+			"time": 13,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Validate new Created Object - checked (Y)": true,
+				"Validate new Created Object - date": true,
+				"Validate new Created Object - description": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate new Created Object - checked (Y)": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate new Created Object - date": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate new Created Object - description": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Validate new Created Object - checked (Y)": true,
+					"Validate new Created Object - date": true,
+					"Validate new Created Object - description": true
+				}
+			]
+		},
+		{
+			"id": "7e3924a4-180e-4b50-bce6-580a4551d6b1",
+			"name": "Update a Task (Checked = N)",
+			"url": "http://localhost:8080/task",
+			"time": 14,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Validate new Created Object - checked (N)": true,
+				"Validate new Created Object - date": true,
+				"Validate new Created Object - description": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate new Created Object - checked (N)": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate new Created Object - date": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate new Created Object - description": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Validate new Created Object - checked (N)": true,
+					"Validate new Created Object - date": true,
+					"Validate new Created Object - description": true
+				}
+			]
+		},
+		{
+			"id": "fae1d5d8-8d7a-4d07-93b0-d3e4c60339dc",
+			"name": "Delete a Task",
+			"url": "http://localhost:8080/task/7",
+			"time": 8,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Succeessfull deletion will give count = 1": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Succeessfull deletion will give count = 1": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Succeessfull deletion will give count = 1": true
+				}
+			]
+		},
+		{
+			"id": "8ddb43cf-52cc-4241-ae21-43704bd934b9",
+			"name": "Delete a Task Not exist",
+			"url": "http://localhost:8080/task/7",
+			"time": 7,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true,
+				"Body matches string": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status code is 404": true,
+					"Body matches string": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 155,
+	"collection": {
+		"requests": [
+			{
+				"id": "832ee57d-62d4-4ce0-b1a4-c1846ba0c817",
+				"method": "PUT"
+			},
+			{
+				"id": "25387281-3690-4542-aa80-b93ccdd80156",
+				"method": "PUT"
+			},
+			{
+				"id": "836f14c5-6614-4f6e-9c22-10bfd72fd7b5",
+				"method": "PUT"
+			},
+			{
+				"id": "0c45afcf-f10b-4548-b6ad-c2a15bed366f",
+				"method": "PUT"
+			},
+			{
+				"id": "eb1bfb2c-534d-4090-8168-28ed7ab8c2aa",
+				"method": "GET"
+			},
+			{
+				"id": "598bc43a-c9f1-4efa-ba70-3792e6400760",
+				"method": "GET"
+			},
+			{
+				"id": "7eaad8f5-ee9d-4fb6-b970-de04ff7e83db",
+				"method": "POST"
+			},
+			{
+				"id": "7e3924a4-180e-4b50-bce6-580a4551d6b1",
+				"method": "POST"
+			},
+			{
+				"id": "fae1d5d8-8d7a-4d07-93b0-d3e4c60339dc",
+				"method": "DELETE"
+			},
+			{
+				"id": "8ddb43cf-52cc-4241-ae21-43704bd934b9",
+				"method": "DELETE"
+			}
+		]
+	}
+}

@@ -61,9 +61,9 @@ public class TaskResource {
     @Timed
     @UnitOfWork
     @Transactional
-    public Task createOrReplaceTask(@Valid final Task task) throws InvalidUserInputException {
+    public Response createOrReplaceTask(@Valid final Task task) throws InvalidUserInputException {
         if (validateTask(task))
-            return taskDAO.createOrReplace(task);
+            return Response.ok(taskDAO.createOrReplace(task)).build();
         else {
             throw new InvalidUserInputException(400, "User input failed validation");
         }
@@ -79,11 +79,11 @@ public class TaskResource {
     @Timed
     @UnitOfWork
     @Transactional
-    public Task createTask(@Valid final Task task) throws InvalidUserInputException {
+    public Response createTask(@Valid final Task task) throws InvalidUserInputException {
         logger.info("Received a task: {}", task);
 
         if (validateTask(task))
-            return taskDAO.createTask(task);
+            return Response.ok(taskDAO.createTask(task)).build();
         else {
             throw new InvalidUserInputException(400, "User input failed validation");
         }

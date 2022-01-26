@@ -3,6 +3,7 @@ package com.example.rest;
 import com.example.rest.api.Task;
 import com.example.rest.db.TaskDAO;
 import com.example.rest.provider.Dropwizard404ExceptionMapper;
+import com.example.rest.provider.InvalidUserInputExceptionMapper;
 import com.example.rest.resources.HealthCheckResource;
 import com.example.rest.resources.TaskResource;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
@@ -61,7 +62,7 @@ public class TaskApplication extends io.dropwizard.Application<TaskAppConfigurat
         env.jersey().register(new TaskResource(taskDAO));
         env.jersey().register(new HealthCheckResource());
         env.jersey().register(Dropwizard404ExceptionMapper.class);
-
+        env.jersey().register(InvalidUserInputExceptionMapper.class);
         configureCors(env);
     }
 

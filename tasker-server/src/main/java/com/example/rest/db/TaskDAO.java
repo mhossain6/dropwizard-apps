@@ -95,7 +95,7 @@ public class TaskDAO extends AbstractDAO<Task> {
 
     private void updateTask(Task foundTask, final Task task) {
         foundTask.setDescription(task.getDescription());
-        foundTask.setChecked(task.getChecked());
+        foundTask.setChecked(null == task.getChecked() ? "N" : task.getChecked() );
         foundTask.setDate(task.getDate());
     }
 

@@ -47,6 +47,7 @@ public class Task {
         this.id = id;
         this.description = description;
         this.date = date;
+        this.checked = "N";
     }
 
     public Task(String description, String date) {

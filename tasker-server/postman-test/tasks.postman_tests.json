@@ -1,0 +1,541 @@
+{
+	"info": {
+		"_postman_id": "6e1d3f0a-3079-4ce5-ba44-6a1c9abb5174",
+		"name": "Tasker API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"task = JSON.parse(responseBody);\r",
+							"//Set values here so they can be used later\r",
+							"pm.environment.set(\"newCreatedTaskId\", task.id);\r",
+							"pm.environment.set(\"newCreatedTask\", task);\r",
+							"\r",
+							"pm.test(\"Validate new Created Object - checked\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.checked).to.eql(\"N\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate new Created Object - date\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.date).to.eql(\"2022-02-20\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate new Created Object - description\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.description).to.eql(\"Help me\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"version\": 0,\r\n    \"id\": 1,\r\n    \"checked\": \"N\",\r\n    \"description\": \"Help me\",\r\n    \"date\": \"2022-02-20\"\r\n}"
+				},
+				"url": {
+					"raw": "http://{{url}}/task",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Task (minimal body)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"task = JSON.parse(responseBody);\r",
+							"\r",
+							"pm.test(\"Validate new Created Object - checked\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.checked).to.eql(\"N\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate new Created Object - date\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.date).to.eql(\"2022-02-20\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate new Created Object - description\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.description).to.eql(\"Help me 2\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"Help me 2\",\r\n    \"date\": \"2022-02-20\" \r\n}"
+				},
+				"url": {
+					"raw": "http://{{url}}/task",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Task with Malformed Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Error Description Contained in Body Matches\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Description provided exceeds Max length of 250\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"This is a very long text description.  lorem ipsam  lorem ipsam lorem ipsam lorem ipsam lorem ipsam lorem ipsam lorem ipsam lorem ipsam lorem ipsam lorem ipsam lorem ipsam lorem ipsam lorem ipsam lorem ipsam lorem ipsam lorem ipsam lorem ipsam lorem ipsam lorem ipsam lorem ipsam lorem ipsam\",\r\n    \"date\": \"2022-01-28\"\r\n}"
+				},
+				"url": {
+					"raw": "http://{{url}}/task",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Task with Malformed Data Description",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Error Description Contained in Body Matches\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Date provided does not conform to 'yyyy-MM-dd' ISO format\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"This is a very long text description.\",\r\n    \"date\": \"Malformed Date\"\r\n}"
+				},
+				"url": {
+					"raw": "http://{{url}}/task",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tasks",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.sendRequest(\"http://localhost:8080/task\", function (err, response) {\r",
+							"    console.log(response.json());\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"objectCnt  = jsonData.length ;\r",
+							"console.log(objectCnt);\r",
+							"\r",
+							"// Based on Above workflow - Atleast 1 Object shouldbe there in response\r",
+							"pm.test(\"Response contains 1 or More Task Object\", function () {\r",
+							"  pm.expect(objectCnt).to.gte(1);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{url}}/task",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Query a Task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"task = JSON.parse(responseBody);\r",
+							"\r",
+							"//Varify values created in Create Task Test (1)\r",
+							"pm.test(\"Validate new Created Object - checked\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.checked).to.eql(\"N\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate new Created Object - date\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.date).to.eql(\"2022-02-20\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate new Created Object - description\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.description).to.eql(\"Help me\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{url}}/task/{{newCreatedTaskId}}",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"task",
+						"{{newCreatedTaskId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a Task (Checked = Y)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//Varify values created in Create Task Test (1)\r",
+							"pm.test(\"Validate new Created Object - checked (Y)\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.checked).to.eql(\"Y\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate new Created Object - date\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.date).to.eql(\"2022-02-20\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate new Created Object - description\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.description).to.eql(\"Help me\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"version\": 0,\r\n    \"id\": {{newCreatedTaskId}},\r\n    \"checked\": \"Y\",\r\n    \"description\": \"Help me\",\r\n    \"date\": \"2022-02-20\"\r\n}"
+				},
+				"url": {
+					"raw": "http://{{url}}/task",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a Task (Checked = N)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//Varify values created in Create Task Test (1)\r",
+							"pm.test(\"Validate new Created Object - checked (N)\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.checked).to.eql(\"N\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate new Created Object - date\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.date).to.eql(\"2022-02-20\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate new Created Object - description\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.description).to.eql(\"Help me\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"version\": 0,\r\n    \"id\": {{newCreatedTaskId}},\r\n    \"checked\": \"N\",\r\n    \"description\": \"Help me\",\r\n    \"date\": \"2022-02-20\"\r\n}"
+				},
+				"url": {
+					"raw": "http://{{url}}/task",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Succeessfull deletion will give count = 1\", function () {\r",
+							"    pm.expect(pm.response.text()).to.eq(\"1\");\r",
+							"});\r",
+							" "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{url}}/task/{{newCreatedTaskId}}",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"task",
+						"{{newCreatedTaskId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Task Not exist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"No Object Found with the ID\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{url}}/task/{{newCreatedTaskId}}",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"task",
+						"{{newCreatedTaskId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}
