@@ -133,7 +133,7 @@ const Tasker = ({ name }: AppProps) => {
   );
 };
 
-const AddTaskView: React.FC<AddTaskProps> = ({ onSaveCallbak }) => {
+export const AddTaskView: React.FC<AddTaskProps> = ({ onSaveCallbak }) => {
   const [description, setDescription] = React.useState<string>("");
   const [date, setDate] = React.useState<string>("");
   const [vaildDate, setVaildDate] = React.useState<boolean>(true);
@@ -185,12 +185,12 @@ const AddTaskView: React.FC<AddTaskProps> = ({ onSaveCallbak }) => {
         <CardContent style={customStyle}>
           <Stack spacing={1}>
             <Item>
-              <Typography variant="h6" component="h6">
+              <Typography variant="h6" component="h6" id="add_task_label">
                 Add Task
               </Typography>
             </Item>
             <Item>
-              <Typography variant="h6" component="h6">
+              <Typography variant="h6" component="h6" id="task_description_lable">
                 Description
               </Typography>
             </Item>
@@ -204,7 +204,7 @@ const AddTaskView: React.FC<AddTaskProps> = ({ onSaveCallbak }) => {
               />
             </Item>
             <Item>
-              <Typography variant="h6" component="h6" alignItems="left">
+              <Typography variant="h6" component="h6" alignItems="left" id="task_date_lable">
                 Date
               </Typography>
             </Item>
@@ -233,7 +233,7 @@ const AddTaskView: React.FC<AddTaskProps> = ({ onSaveCallbak }) => {
         <CardActions sx={{ display: "grid" }}>
           <Stack spacing={2} direction="row-reverse" alignContent={"right"}>
             <Item>
-              <Button variant="outlined" onClick={onSaveClick}>
+              <Button variant="outlined" onClick={onSaveClick} id="task_save_button">
                 Save
               </Button>
             </Item>
@@ -244,7 +244,7 @@ const AddTaskView: React.FC<AddTaskProps> = ({ onSaveCallbak }) => {
   );
 };
 
-const TaskView: React.FC<TaskListProps> = ({ tasks, onChangeCallBack }) => {
+export const TaskView: React.FC<TaskListProps> = ({ tasks, onChangeCallBack }) => {
   console.log("in Taskviw : tasks", tasks);
 
   const onCheckBoxClick = (task: Task) => {
@@ -290,12 +290,12 @@ const TaskView: React.FC<TaskListProps> = ({ tasks, onChangeCallBack }) => {
                         <Item sx={{ minWidth: "sm" }} style={{ width: "80%" }}>
                           <Stack spacing={2}>
                             <Item>
-                              <ListItemText primary={task.description} />
+                              <ListItemText primary={task.description} id={"task_description"+ task.id} />
                             </Item>
                             <Item>
                               <Stack spacing={2} direction="row">
                                 <EventIcon />
-                                <ListItemText primary={task.date} />
+                                <ListItemText primary={task.date} id={"task_date"+ task.id}/>
                               </Stack>
                             </Item>
                           </Stack>
@@ -308,6 +308,7 @@ const TaskView: React.FC<TaskListProps> = ({ tasks, onChangeCallBack }) => {
                                 onClick={(e) => {
                                   onCheckBoxClick(task);
                                 }}
+                                id={"task_checked"+ task.id}
                               />
                             </Item>
                             <Item>
