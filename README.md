@@ -83,3 +83,10 @@ $docker container run -p 8080:8080/tcp  tasker_server
  API test script for postman is available in 
  
  tasker-server\postman-test
+ 
+ # DB Migration to Oracle Cloud
+ 
+ tasker-server/db contains DB script to create the sample HR schema ( can use any other schema) + DB scripts for creating the task table, index and sequence.
+ 
+ in order to login to oci database, you need to package the wallet in Docker (copy them to /app/config ) and modify db config to use the correct DB url with wallet_location location
+ 
