@@ -1,19 +1,18 @@
 # Database settings.
 database:
   # the name of your JDBC driver
-  driverClass: org.h2.Driver
+  driverClass: oracle.jdbc.OracleDriver
   # the username
-  user: sa
+  user: <user>
   # the password
-  password: sa
+  password: <password>
   # the JDBC URL
-  url: jdbc:h2:/db/task;ACCESS_MODE_DATA=rws
+  url: jdbc:oracle:thin:@tcps://<host>:<port>/<db>?wallet_location=<wallet_location>&ssl_server_cert_dn=<cert_dn>
+  dialect: org.hibernate.dialect.Oracle10gDialect
+  validationQuery : select 1 from dual
 
   properties:
     charSet: UTF-8
-    hibernate.dialect: org.hibernate.dialect.H2Dialect
-    hibernate.hbm2ddl.auto: create
-
 # use the simple server factory if you only want to run on a single port
 server:
   type: simple

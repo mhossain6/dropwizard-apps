@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "task")
+@Table(name = "HR.TASK")
 @NamedQueries(
         {
                 @NamedQuery(
@@ -26,21 +26,23 @@ import java.util.Objects;
 public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "c_generator")
+    @SequenceGenerator(name = "c_generator", sequenceName = "HR.TASK_SEQ", allocationSize = 1)
     private long id;
-
     @Version
+    @Column(name = "VERSION", nullable = false)
     private int version;
-    @Column(name = "checked", nullable = false)
+    @Column(name = "CHECKED", nullable = true)
     private String checked;
-    @Column(name = "description", nullable = false)
+    @Column(name = "DESCRIPTION", nullable = true)
     private String description;
-    @Column(name = "date", nullable = false)
+    @Column(name = "TARGET_DATE", nullable = true)
     private String date;
 
     public Task() {
         // Jackson deserialization
+        version = 0;
     }
 
     public Task(long id, String description, String date) {
@@ -54,6 +56,15 @@ public class Task {
         this.description = description;
         this.date = date;
         this.checked = "N";
+    }
+
+    @JsonProperty("id")
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getVersion() {
@@ -71,15 +82,6 @@ public class Task {
 
     public void setChecked(String checked) {
         this.checked = checked;
-    }
-
-    @JsonProperty("id")
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     @JsonProperty("description")

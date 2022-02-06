@@ -12,7 +12,6 @@ import io.dropwizard.hibernate.UnitOfWork;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -60,7 +59,6 @@ public class TaskResource {
     @POST
     @Timed
     @UnitOfWork
-    @Transactional
     public Response createOrReplaceTask(@Valid final Task task) throws InvalidUserInputException {
         if (validateTask(task))
             return Response.ok(taskDAO.createOrReplace(task)).build();
@@ -78,7 +76,6 @@ public class TaskResource {
     @PUT
     @Timed
     @UnitOfWork
-    @Transactional
     public Response createTask(@Valid final Task task) throws InvalidUserInputException {
         logger.info("Received a task: {}", task);
 
@@ -93,7 +90,6 @@ public class TaskResource {
     @Path("/{id}")
     @Timed
     @UnitOfWork
-    @Transactional
     public Response deleteTask(@PathParam("id") Long id) throws Dropwizard404Exception, InvalidUserInputException {
         logger.info("Received for deletion with id {}", id);
         EntityValidator entityValidator = new EntityValidator();

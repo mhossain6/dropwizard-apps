@@ -13,6 +13,7 @@ public class TaskAppConfiguration extends Configuration {
     @NotNull
     private DataSourceFactory database = new DataSourceFactory();
 
+
     public TaskAppConfiguration() {
 
     }
@@ -25,7 +26,8 @@ public class TaskAppConfiguration extends Configuration {
     @JsonProperty("database")
     public void setDataSourceFactory(DataSourceFactory dataSourceFactory) {
         this.database = dataSourceFactory;
-        this.setDBConfig();
+        //this.setDBConfig();
+        this.setOraDBConfig();
     }
 
     private void setDBConfig() {
@@ -36,4 +38,18 @@ public class TaskAppConfiguration extends Configuration {
         this.database.getProperties().put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
         this.database.getProperties().put("hibernate.hbm2ddl.auto", "create");
     }
+
+    private void setOraDBConfig() {
+
+        this.database.setUrl("jdbc:oracle:thin:@tcps://<host>:<port>/<db>?wallet_location=<wallet_location>&ssl_server_cert_dn=<cert_dn>");
+        this.database.setDriverClass("oracle.jdbc.driver.OracleDriver");
+        this.database.setUser("hr");
+        this.database.setPassword("<password>");
+        this.database.getProperties().put("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
+        this.database.setValidationQuery("select 1 from dual");
+
+    }
 }
+
+
+

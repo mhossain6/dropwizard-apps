@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.Iterator;
 import java.util.List;
@@ -28,10 +27,8 @@ public class TaskDAO extends AbstractDAO<Task> {
     }
 
     public List<Task> findAll() {
-        EntityManager em = currentSession().getSessionFactory().createEntityManager();
-        Query query = em.createQuery("SELECT t from Task t");
-        List<Task> tasks = query.getResultList();
-        return tasks;
+        return list(namedTypedQuery("findAllTask"));
+
     }
 
     public Task createOrReplace(final Task task) {
@@ -93,7 +90,7 @@ public class TaskDAO extends AbstractDAO<Task> {
 
     private void updateTask(Task foundTask, final Task task) {
         foundTask.setDescription(task.getDescription());
-        foundTask.setChecked(null == task.getChecked() ? "N" : task.getChecked() );
+        foundTask.setChecked(null == task.getChecked() ? "N" : task.getChecked());
         foundTask.setDate(task.getDate());
     }
 

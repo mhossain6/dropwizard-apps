@@ -274,6 +274,7 @@ export const TaskView: React.FC<TaskListProps> = ({ tasks, onChangeCallBack }) =
       .catch(function (error) {
         console.log("error while getting data from server" + error.toString());
       });
+      
   };
 
   return (
